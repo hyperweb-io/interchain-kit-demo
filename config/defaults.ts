@@ -2,6 +2,7 @@ import { assets } from 'chain-registry';
 import { AssetList, Asset } from '@chain-registry/types';
 
 export const defaultChainName = 'cosmoshub'
+export const defaultRpcEndpoint = 'https://rpc.cosmos.directory/cosmoshub'
 
 export const chainassets = assets.find(
   (chain) => chain.chain_name === defaultChainName

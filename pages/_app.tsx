@@ -9,6 +9,7 @@ import { assetLists, chains } from '@chain-registry/v2';
 import { keplrWallet } from '@interchain-kit/keplr-extension';
 import { leapWallet } from '@interchain-kit/leap-extension';
 import { Box, ThemeProvider, Toaster, useTheme, useColorModeValue } from '@interchain-ui/react';
+import { defaultRpcEndpoint } from '@/config';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,7 +42,7 @@ function CreateCosmosApp({ Component, pageProps }: AppProps) {
         endpointOptions={{
           endpoints: {
             'cosmoshub-4': {
-              rpc: ['https://rpc.cosmos.directory/cosmoshub'],
+              rpc: [defaultRpcEndpoint],
             },
           }
         }}
