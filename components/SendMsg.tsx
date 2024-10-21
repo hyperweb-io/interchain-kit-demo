@@ -7,10 +7,9 @@ import { useGetBalance } from '@/src/cosmos/bank/v1beta1/query.rpc.func'
 import { useSend } from '@/src/cosmos/bank/v1beta1/tx.rpc.func'
 import { useQueryClient } from '@tanstack/react-query'
 import { assetLists } from '@chain-registry/v2';
+import { defaultRpcEndpoint as rpcEndpoint } from '@/config';
 
-import {useRpcClient} from '@/src/react-query'
-
-const rpcEndpoint = 'https://rpc.cosmos.directory/cosmoshub'
+import { useRpcClient } from '@/src/react-query'
 
 export default function SendMsg() {
   const assetList = assetLists.find(assetList => assetList.chainName === defaultChainName);
@@ -18,12 +17,15 @@ export default function SendMsg() {
   const exponent = assetList?.assets[0].denomUnits.find(denomUnit=>denomUnit.exponent!==0)?.exponent || 0
   const { address, signingClient, isLoading } = useChain(defaultChainName);
   const queryClient = useQueryClient();
+
+  // set global signingClient
   queryClient.setQueryData([DEFAULT_SIGNING_CLIENT_QUERY_KEY], signingClient);
   
   const [sending, setSending] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // use cached global signingClient inside
   const { mutate: send, isSuccess: isSendSuccess } = useSend({
     options: {
       onSuccess: (data:any) => {
@@ -46,7 +48,8 @@ export default function SendMsg() {
     },
   });
 
-  useRpcClient({ // do not delete
+  // set global rpcClient
+  useRpcClient({
     rpcEndpoint,
     options: {
       enabled: !!rpcEndpoint,
@@ -58,7 +61,7 @@ export default function SendMsg() {
     isSuccess: isBalanceLoaded,
     isLoading: isFetchingBalance,
     refetch: refetchBalance,
-  } = useGetBalance({
+  } = useGetBalance({ // use cached global rpcClient inside
     request: {
       address,
       denom,
