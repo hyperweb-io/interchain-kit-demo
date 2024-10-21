@@ -1,0 +1,124 @@
+import { Box, Text, Button, Link } from "@interchain-ui/react";
+import { useState } from "react";
+import { useChain } from "@interchain-kit/react";
+import { defaultChainName } from "@/config";
+import { DEFAULT_SIGNING_CLIENT_QUERY_KEY } from 'interchainjs/react-query'
+import { useGetBalance } from '@/src/cosmos/bank/v1beta1/query.rpc.func'
+import { useSend } from '@/src/cosmos/bank/v1beta1/tx.rpc.func'
+import { useQueryClient } from '@tanstack/react-query'
+import { assetLists } from '@chain-registry/v2';
+
+import {useRpcClient} from '@/src/react-query'
+
+const rpcEndpoint = 'https://rpc.cosmos.directory/cosmoshub'
+
+export default function SendMsg() {
+  const assetList = assetLists.find(assetList => assetList.chainName === defaultChainName);
+  const denom = assetList?.assets[0].base!
+  const exponent = assetList?.assets[0].denomUnits.find(denomUnit=>denomUnit.exponent!==0)?.exponent || 0
+  const { address, signingClient, isLoading } = useChain(defaultChainName);
+  const queryClient = useQueryClient();
+  queryClient.setQueryData([DEFAULT_SIGNING_CLIENT_QUERY_KEY], signingClient);
+  
+  const [sending, setSending] = useState(false);
+  const [txHash, setTxHash] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const { mutate: send, isSuccess: isSendSuccess } = useSend({
+    options: {
+      onSuccess: (data:any) => {
+        console.log('onSuccess', data)
+        setTimeout(()=>{
+          refetchBalance()
+        }, 5000)
+        if (data.code===0) {
+          setTxHash(data.hash);
+        } else {
+          setError(data.rawLog||JSON.stringify(data||{}));
+        }
+        setSending(false);
+      },
+      onError: (error) => {
+        console.log('onError', error)
+        setError(error.message || 'Unknown error');
+        setSending(false);
+      },
+    },
+  });
+
+  useRpcClient({ // do not delete
+    rpcEndpoint,
+    options: {
+      enabled: !!rpcEndpoint,
+    },
+  });
+
+  const {
+    data: balance,
+    isSuccess: isBalanceLoaded,
+    isLoading: isFetchingBalance,
+    refetch: refetchBalance,
+  } = useGetBalance({
+    request: {
+      address,
+      denom,
+    },
+    rpcEndpoint,
+    options: {
+      enabled: !!address,
+      select: ({ balance }) =>
+        BigInt(balance?.amount ?? 0),
+    },
+  });
+
+  const handleSend = async () => {
+    if (sending || isLoading) return;
+
+    setError(null);
+    setTxHash(null);
+    setSending(true);
+    send({
+      signerAddress: address,
+      message: {
+        fromAddress: address,
+        toAddress: address,
+        amount: [{ denom, amount: '1' }],
+      },
+      fee: {
+        amount: [
+          {
+            denom,
+            amount: '25000',
+          },
+        ],
+        gas: '1000000',
+      },
+      memo: 'using interchainjs',
+    })
+  }
+
+  return (
+    <Box display="flex" flexDirection="column" alignItems="center">
+      <Box mb='$4'>
+        <Text fontSize='$2xl'>Balance: {isFetchingBalance?'--':(Number(balance)/10**exponent)} {assetList?.assets[0].symbol}</Text>
+      </Box>
+      <Box>
+        <Button
+          disabled={sending || isLoading}
+          isLoading={sending}
+          onClick={handleSend}
+        >{isLoading?'Initializing...':'Send Token'}</Button>
+      </Box>
+      {txHash && <Box mt='$4' display='flex' flexDirection='row' alignItems='center'>
+        <Text attributes={{ mr: '$1' }}>Details:</Text>
+        <Link href={`https://www.mintscan.io/cosmos/tx/${txHash}`} target="_blank">
+          https://www.mintscan.io/cosmos/tx/{txHash}
+        </Link>
+      </Box>}
+      {error && <Box mt='$4' display='flex' flexDirection='row' alignItems='center'>
+        <Text attributes={{ mr: '$1' }} fontSize='$2xl'>Error:</Text>
+        <Text fontSize='$2xl'>{error}</Text>
+      </Box>}
+    </Box>
+  );
+}
