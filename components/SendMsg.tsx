@@ -5,12 +5,11 @@ import { defaultChainName } from "@/config";
 import { DEFAULT_SIGNING_CLIENT_QUERY_KEY } from 'interchainjs/react-query'
 import { useGetBalance } from 'interchainjs/cosmos/bank/v1beta1/query.rpc.func'
 import { useSend } from 'interchainjs/cosmos/bank/v1beta1/tx.rpc.func'
-import { useQueryClient } from '@tanstack/react-query'
+import { defaultContext, useQueryClient } from '@tanstack/react-query'
 import { assetLists, chains } from '@chain-registry/v2';
 import { defaultRpcEndpoint as rpcEndpoint } from '@/config';
 
 import { useRpcClient } from 'interchainjs/react-query'
-import { QueryClientContext } from "./SharingContext";
 import BigNumber from "bignumber.js";
 
 export default function SendMsg() {
@@ -28,7 +27,7 @@ export default function SendMsg() {
 
   const { address, signingClient, isLoading } = useChain(defaultChainName);
   const queryClient = useQueryClient({
-    context: QueryClientContext
+    context: defaultContext
   });
 
   // set global signingClient
@@ -41,7 +40,7 @@ export default function SendMsg() {
   // use cached global signingClient inside
   const { mutate: send, isSuccess: isSendSuccess } = useSend({
     options: {
-      context: QueryClientContext,
+      context: defaultContext,
       onSuccess: (data:any) => {
         console.log('onSuccess', data)
         setTimeout(()=>{
@@ -66,7 +65,7 @@ export default function SendMsg() {
   useRpcClient({
     rpcEndpoint,
     options: {
-      context: QueryClientContext,
+      context: defaultContext,
       enabled: !!rpcEndpoint,
     },
   });
@@ -83,7 +82,7 @@ export default function SendMsg() {
     },
     rpcEndpoint,
     options: {
-      context: QueryClientContext,
+      context: defaultContext,
       enabled: !!address,
       select: ({ balance }) =>
         new BigNumber(balance?.amount ?? 0).multipliedBy(
