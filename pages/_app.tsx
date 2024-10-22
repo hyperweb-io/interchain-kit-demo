@@ -16,7 +16,7 @@ import {
   useColorModeValue,
 } from "@interchain-ui/react";
 import { defaultRpcEndpoint } from "@/config";
-import { QueryClientContext, QueryClientContextProviderContext, useQueryClientContext } from "../components/sharingContext";
+import { QueryClientContext, QueryClientContextProviderContext } from "../components/SharingContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
