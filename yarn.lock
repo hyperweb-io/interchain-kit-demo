@@ -6739,10 +6739,10 @@ interchainjs@0.0.1-beta.19, interchainjs@^0.0.1-beta.19:
     "@noble/hashes" "^1.3.1"
     decimal.js "^10.4.3"
 
-interchainjs@0.0.1-beta.20:
-  version "0.0.1-beta.20"
-  resolved "https://registry.yarnpkg.com/interchainjs/-/interchainjs-0.0.1-beta.20.tgz#9bbe124f0ad9b68417becfa5f5c56a4b91cf5897"
-  integrity sha512-UfDMbc2WsEAl8Wf4o412pvWcFAuqW+eqPGA0VPaptWijVrjrQBlSwWdFe3b01bnY5tUJmY2rxI8ow8RtpbDeJw==
+interchainjs@0.0.1-beta.22:
+  version "0.0.1-beta.22"
+  resolved "https://registry.yarnpkg.com/interchainjs/-/interchainjs-0.0.1-beta.22.tgz#c4b8def22bab8b0175c8b87dcdc714f4ca46421c"
+  integrity sha512-4CIaI+ZTwYa/+iDJ64KQqFqtLk/SB0rcnuef3LYA+H5vp/ADX8J2HNr03DiubgGFIaOiaARBQDuSR09J7Zfp1g==
   dependencies:
     "@interchainjs/cosmos" "^0.0.1-beta.16"
     "@interchainjs/cosmos-types" "^0.0.1-beta.13"

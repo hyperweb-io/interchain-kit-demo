@@ -2,7 +2,11 @@ import { Box, Text } from '@interchain-ui/react';
 import { useChain } from "@interchain-kit/react";
 import { defaultChainName } from "@/config";
 import { WalletState } from '@interchain-kit/core'
-import SendMsg from './SendMsg';
+import dynamic from 'next/dynamic';
+
+const SendMsg = dynamic(() => import('./SendMsg'), {
+  ssr: false,
+});
 
 export function Main() {
   const { status } = useChain(defaultChainName);
