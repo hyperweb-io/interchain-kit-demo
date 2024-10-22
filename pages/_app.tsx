@@ -16,8 +16,6 @@ import {
   useColorModeValue,
 } from "@interchain-ui/react";
 import { defaultRpcEndpoint } from "@/config";
-import { QueryClientContext, QueryClientContextProviderContext } from "../components/SharingContext";
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -56,19 +54,17 @@ function CreateCosmosApp({ Component, pageProps }: AppProps) {
           },
         }}
       >
-        <QueryClientContextProviderContext queryClient={queryClient}>
-          <QueryClientProvider client={queryClient} context={QueryClientContext}>
-            <Box
-              className={themeClass}
-              minHeight="100dvh"
-              backgroundColor={useColorModeValue("$white", "$background")}
-            >
-              {/* TODO fix type error */}
-              {/* @ts-ignore */}
-              <Component {...pageProps} />
-            </Box>
-          </QueryClientProvider>
-        </QueryClientContextProviderContext>
+        <QueryClientProvider client={queryClient}>
+          <Box
+            className={themeClass}
+            minHeight="100dvh"
+            backgroundColor={useColorModeValue("$white", "$background")}
+          >
+            {/* TODO fix type error */}
+            {/* @ts-ignore */}
+            <Component {...pageProps} />
+          </Box>
+        </QueryClientProvider>
       </ChainProvider>
 
       <Toaster position={"top-right"} closeButton={true} />
