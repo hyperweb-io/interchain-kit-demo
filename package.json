@@ -10,7 +10,6 @@
     "locks:remove": "rm -f yarn.lock",
     "locks:create": "generate-lockfile --lockfile ../../yarn.lock --package package.json --write yarn.lock --force",
     "locks": "npm run locks:remove && npm run locks:create",
-    "codegen": "telescope transpile --config ./scripts/interchainjs.telescope.json"
   },
   "resolutions": {
     "react": "18.2.0",

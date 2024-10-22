@@ -10,7 +10,7 @@ import { assetLists } from '@chain-registry/v2';
 import { defaultRpcEndpoint as rpcEndpoint } from '@/config';
 
 import { useRpcClient } from 'interchainjs/react-query'
-import { QueryClientContext } from "./sharingContext";
+import { QueryClientContext } from "./SharingContext";
 import BigNumber from "bignumber.js";
 
 export default function SendMsg() {
