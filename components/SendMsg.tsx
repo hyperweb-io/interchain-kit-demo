@@ -6,7 +6,7 @@ import { DEFAULT_SIGNING_CLIENT_QUERY_KEY } from 'interchainjs/react-query'
 import { useGetBalance } from 'interchainjs/cosmos/bank/v1beta1/query.rpc.func'
 import { useSend } from 'interchainjs/cosmos/bank/v1beta1/tx.rpc.func'
 import { useQueryClient } from '@tanstack/react-query'
-import { assetLists } from '@chain-registry/v2';
+import { assetLists, chains } from '@chain-registry/v2';
 import { defaultRpcEndpoint as rpcEndpoint } from '@/config';
 
 import { useRpcClient } from 'interchainjs/react-query'
@@ -18,11 +18,13 @@ export default function SendMsg() {
   const coin = assetList?.assets[0];
 
   const denom = coin!.base!
-  const exponent = coin!.denomUnits.find(denomUnit=>denomUnit.exponent!==0)?.exponent || 0
 
   const COIN_DISPLAY_EXPONENT = coin!.denomUnits.find(
     (unit) => unit.denom === coin!.display
   )?.exponent as number;
+
+  const chain = chains.find(chain => chain.chainName === defaultChainName);
+  const txPage =  chain?.explorers?.[0].txPage
 
   const { address, signingClient, isLoading } = useChain(defaultChainName);
   const queryClient = useQueryClient({
@@ -35,7 +37,6 @@ export default function SendMsg() {
   const [sending, setSending] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-
 
   // use cached global signingClient inside
   const { mutate: send, isSuccess: isSendSuccess } = useSend({
@@ -120,7 +121,7 @@ export default function SendMsg() {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <Box mb='$4'>
-        <Text fontSize='$2xl'>Balance: {isFetchingBalance?'--':(balance?.toFixed(6))} {assetList?.assets[0].symbol}</Text>
+        <Text fontSize='$2xl'>Balance: {isFetchingBalance?'--':(balance?.toFixed(COIN_DISPLAY_EXPONENT))} {assetList?.assets[0].symbol}</Text>
       </Box>
       <Box>
         <Button
@@ -131,8 +132,8 @@ export default function SendMsg() {
       </Box>
       {txHash && <Box mt='$4' display='flex' flexDirection='row' alignItems='center'>
         <Text attributes={{ mr: '$1' }}>Details:</Text>
-        <Link href={`https://www.mintscan.io/cosmos/tx/${txHash}`} target="_blank">
-          https://www.mintscan.io/cosmos/tx/{txHash}
+        <Link href={txPage?.replace('${txHash}', txHash)!} target="_blank">
+          {txPage?.replace('${txHash}', txHash)!}
         </Link>
       </Box>}
       {error && <Box mt='$4' display='flex' flexDirection='row' alignItems='center'>
