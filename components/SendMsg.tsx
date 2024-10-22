@@ -43,9 +43,7 @@ export default function SendMsg() {
       context: defaultContext,
       onSuccess: (data:any) => {
         console.log('onSuccess', data)
-        setTimeout(()=>{
-          refetchBalance()
-        }, 5000)
+        refetchBalance()
         if (data.code===0) {
           setTxHash(data.hash);
         } else {
