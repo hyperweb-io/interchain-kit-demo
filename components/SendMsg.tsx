@@ -1,20 +1,18 @@
 import { Box, Text, Button, Link } from "@interchain-ui/react";
 import { useState } from "react";
 import { useChain } from "@interchain-kit/react";
-import { defaultChainName } from "@/config";
+import { defaultAssetList, defaultChain, defaultChainName } from "@/config";
 import { DEFAULT_SIGNING_CLIENT_QUERY_KEY } from 'interchainjs/react-query'
 import { useGetBalance } from 'interchainjs/cosmos/bank/v1beta1/query.rpc.func'
 import { useSend } from 'interchainjs/cosmos/bank/v1beta1/tx.rpc.func'
 import { defaultContext, useQueryClient } from '@tanstack/react-query'
-import { assetLists, chains } from '@chain-registry/v2';
 import { defaultRpcEndpoint as rpcEndpoint } from '@/config';
 
 import { useRpcClient } from 'interchainjs/react-query'
 import BigNumber from "bignumber.js";
 
 export default function SendMsg() {
-  const assetList = assetLists.find(assetList => assetList.chainName === defaultChainName);
-  const coin = assetList?.assets[0];
+  const coin = defaultAssetList?.assets[0];
 
   const denom = coin!.base!
 
@@ -22,7 +20,7 @@ export default function SendMsg() {
     (unit) => unit.denom === coin!.display
   )?.exponent as number;
 
-  const chain = chains.find(chain => chain.chainName === defaultChainName);
+  const chain = defaultChain
   const txPage =  chain?.explorers?.[0].txPage
 
   const { address, signingClient, isLoading } = useChain(defaultChainName);
@@ -118,7 +116,7 @@ export default function SendMsg() {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <Box mb='$4'>
-        <Text fontSize='$2xl'>Balance: {isFetchingBalance?'--':(balance?.toFixed(COIN_DISPLAY_EXPONENT))} {assetList?.assets[0].symbol}</Text>
+        <Text fontSize='$2xl'>Balance: {isFetchingBalance?'--':(balance?.toFixed(COIN_DISPLAY_EXPONENT))} {defaultAssetList?.assets[0].symbol}</Text>
       </Box>
       <Box>
         <Button
