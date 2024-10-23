@@ -21,7 +21,6 @@
     "@chain-registry/types": "0.16.0",
     "@chain-registry/utils": "1.13.2",
     "@chain-registry/v2": "^1.71.7",
-    "@cosmology-ui/react": "0.1.8-beta.33",
     "@cosmology/telescope": "^1.10.3",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
