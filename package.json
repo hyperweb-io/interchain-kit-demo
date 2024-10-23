@@ -22,8 +22,6 @@
     "@chain-registry/utils": "1.13.2",
     "@chain-registry/v2": "^1.71.7",
     "@cosmology/telescope": "^1.10.3",
-    "@emotion/react": "11.10.6",
-    "@emotion/styled": "11.10.6",
     "@interchain-kit/core": "0.0.1-beta.33",
     "@interchain-kit/keplr-extension": "0.0.1-beta.33",
     "@interchain-kit/leap-extension": "0.0.1-beta.33",
