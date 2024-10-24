@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { chains } from 'chain-registry';
+import { chains } from '@chain-registry/v2';
 import { Asset, Chain } from '@chain-registry/types';
 
 export function integer(number: number | string) {
@@ -11,6 +11,6 @@ export function getLogo(from: Asset | Chain) {
 }
 
 export function getChainLogo(name: string) {
-  const chain: Chain = chains.find(chain => chain.chain_name === name) as Chain;
+  const chain = chains.find(chain => chain.chainName === name) as unknown as Chain;
   return chain ? getLogo(chain) : null;
 }
