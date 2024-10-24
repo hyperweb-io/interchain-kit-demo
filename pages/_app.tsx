@@ -45,7 +45,7 @@ function CreateCosmosApp({ Component, pageProps }: AppProps) {
         }}
         endpointOptions={{
           endpoints: {
-            "cosmoshub-4": {
+            "cosmoshub": {
               rpc: [defaultRpcEndpoint],
             },
           },
