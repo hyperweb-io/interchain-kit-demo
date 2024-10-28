@@ -1,5 +1,5 @@
 import { Box, Text } from "@interchain-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useChain } from "@interchain-kit/react";
 import { defaultAssetList, defaultChainName } from "@/config";
 import { useGetPool } from 'interchainjs/cosmos/staking/v1beta1/query.rpc.func'
@@ -7,11 +7,17 @@ import { defaultContext, useQueryClient } from '@tanstack/react-query'
 import { defaultRpcEndpoint as rpcEndpoint } from '@/config';
 
 import { useRpcClient } from 'interchainjs/react-query'
+import { Pool } from "interchainjs/cosmos/staking/v1beta1/staking";
 
 export default function QueryStaking() {
   const coin = defaultAssetList?.assets[0];
-
   const denom = coin!.base!
+
+  const [pool, setPool] = useState<Pool|null>(null);
+
+  useEffect(() => {
+    console.log('pool useEffect', pool)
+  }, [pool])
 
   const { address, signingClient, isLoading } = useChain(defaultChainName);
   const queryClient = useQueryClient({
@@ -39,20 +45,26 @@ export default function QueryStaking() {
     rpcEndpoint,
     options: {
       context: defaultContext,
-      enabled: !!address,
-      select: (res) => {
-        console.log('useGetPool',res.pool)
-        // setPool(res.pool)
+      enabled: !isLoading,
+      select: ({pool: _pool}) => {
+        if (!pool) setPool(_pool)
       },
-      onError: (err) => setError(err.message)
+      onError: (err) => setError(err.message),
+      onSuccess(data) {
+        console.log('data, onSuccess', data)
+      },
+      onSettled(data, error) {
+        console.log('data, onSettled', data, error)
+      },
     },
   });
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <Box mb='$4'>
+        <Text fontSize='$2xl'>Result of useGetPool:</Text>
         <Text fontSize='$2xl'>
-          Please see data in console
+          {JSON.stringify(pool)}
         </Text>
       </Box>
       <Box>
