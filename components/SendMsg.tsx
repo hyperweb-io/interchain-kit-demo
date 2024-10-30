@@ -24,12 +24,6 @@ export default function SendMsg() {
   const txPage =  chain?.explorers?.[0].txPage
 
   const { address, signingClient, isLoading } = useChain(defaultChainName);
-  const queryClient = useQueryClient({
-    context: defaultContext
-  });
-
-  // set global signingClient
-  queryClient.setQueryData([DEFAULT_SIGNING_CLIENT_QUERY_KEY], signingClient);
 
   const [sending, setSending] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
@@ -37,6 +31,7 @@ export default function SendMsg() {
 
   // use cached global signingClient inside
   const { mutate: send, isSuccess: isSendSuccess } = useSend({
+    getSingingClient: signingClient,
     options: {
       context: defaultContext,
       onSuccess: (data:any) => {
@@ -54,15 +49,6 @@ export default function SendMsg() {
         setError(error.message || 'Unknown error');
         setSending(false);
       },
-    },
-  });
-
-  // set global rpcClient
-  useRpcClient({
-    rpcEndpoint,
-    options: {
-      context: defaultContext,
-      enabled: !!rpcEndpoint,
     },
   });
 
