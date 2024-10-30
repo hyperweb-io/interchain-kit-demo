@@ -2,14 +2,9 @@ import { Box, Text, Button, Link } from "@interchain-ui/react";
 import { useState } from "react";
 import { useChain } from "@interchain-kit/react";
 import { defaultAssetList, defaultChain, defaultChainName } from "@/config";
-import { DEFAULT_SIGNING_CLIENT_QUERY_KEY } from 'interchainjs/react-query'
-import { useGetBalance } from 'interchainjs/cosmos/bank/v1beta1/query.rpc.func'
 import { useSend } from 'interchainjs/cosmos/bank/v1beta1/tx.rpc.func'
-import { defaultContext, useQueryClient } from '@tanstack/react-query'
-import { defaultRpcEndpoint as rpcEndpoint } from '@/config';
-
-import { useRpcClient } from 'interchainjs/react-query'
-import BigNumber from "bignumber.js";
+import { defaultContext } from '@tanstack/react-query'
+import useBalance from "@/hooks/useBalance";
 
 export default function SendMsg() {
   const coin = defaultAssetList?.assets[0];
@@ -31,6 +26,7 @@ export default function SendMsg() {
 
   // use cached global signingClient inside
   const { mutate: send, isSuccess: isSendSuccess } = useSend({
+    // @ts-ignore
     getSingingClient: signingClient,
     options: {
       context: defaultContext,
@@ -53,25 +49,13 @@ export default function SendMsg() {
   });
 
   const {
-    data: balance,
-    isSuccess: isBalanceLoaded,
-    isLoading: isFetchingBalance,
-    refetch: refetchBalance,
-  } = useGetBalance({ // use cached global rpcClient inside
-    request: {
-      address,
-      denom,
-    },
-    rpcEndpoint,
-    options: {
-      context: defaultContext,
-      enabled: !!address,
-      select: ({ balance }) =>
-        new BigNumber(balance?.amount ?? 0).multipliedBy(
-          10 ** -COIN_DISPLAY_EXPONENT
-        ),
-    },
-  });
+    balance,
+    isBalanceLoaded,
+    isFetchingBalance,
+    refetchBalance,
+  } = useBalance({
+    address,
+  })
 
   const handleSend = async () => {
     if (sending || isLoading) return;
