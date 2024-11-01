@@ -86,7 +86,7 @@ export default function SendMsg() {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <Box mb='$4'>
-        <Text fontSize='$2xl'>Balance: {isFetchingBalance?'--':(balance?.toFixed(COIN_DISPLAY_EXPONENT))} {defaultAssetList?.assets[0].symbol}</Text>
+        <Text fontSize='$2xl'>Balance: {isFetchingBalance?'--':(balance?.toFixed(COIN_DISPLAY_EXPONENT))} {coin?.symbol}</Text>
       </Box>
       <Box>
         <Button
