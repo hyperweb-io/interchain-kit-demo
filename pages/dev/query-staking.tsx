@@ -6,7 +6,6 @@ import { useGetPool } from 'interchainjs/cosmos/staking/v1beta1/query.rpc.func'
 import { defaultContext, useQueryClient } from '@tanstack/react-query'
 import { defaultRpcEndpoint as rpcEndpoint } from '@/config';
 
-import { useRpcClient } from 'interchainjs/react-query'
 import { Pool } from "interchainjs/cosmos/staking/v1beta1/staking";
 
 export default function QueryStaking() {
@@ -19,30 +18,14 @@ export default function QueryStaking() {
     console.log('pool useEffect', pool)
   }, [pool])
 
-  const { address, signingClient, isLoading } = useChain(defaultChainName);
-  const queryClient = useQueryClient({
-    context: defaultContext
-  });
-
-  // set global signingClient
-  queryClient.setQueryData(['query-staking'], signingClient);
+  const { address, isLoading } = useChain(defaultChainName);
   const [error, setError] = useState<string | null>(null);
 
-  // set global rpcClient
-  useRpcClient({
-    rpcEndpoint,
-    options: {
-      context: defaultContext,
-      enabled: !!rpcEndpoint,
-    },
-  });
-
-  useGetPool({ // use cached global rpcClient inside
+  useGetPool({
     request: {
       address,
       denom,
     },
-    rpcEndpoint,
     options: {
       context: defaultContext,
       enabled: !isLoading,
@@ -57,6 +40,8 @@ export default function QueryStaking() {
         console.log('data, onSettled', data, error)
       },
     },
+    // with the new version, simply pass the endpoint to the clientResolver
+    clientResolver: rpcEndpoint,
   });
 
   return (
@@ -68,7 +53,7 @@ export default function QueryStaking() {
         </Text>
       </Box>
       <Box>
-        
+
       </Box>
       {error && <Box mt='$4' display='flex' flexDirection='row' alignItems='center'>
         <Text attributes={{ mr: '$1' }} fontSize='$2xl'>Error:</Text>

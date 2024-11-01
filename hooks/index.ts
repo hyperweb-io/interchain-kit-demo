@@ -1,5 +1,3 @@
-export * from './useRpcClient';
-
 
 // Fix TypeError: Do not know how to serialize a BigInt
 // cosmos.bank.v1beta1.useAllBalances({

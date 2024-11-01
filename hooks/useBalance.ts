@@ -23,12 +23,11 @@ export default function useBalance({
     isSuccess: isBalanceLoaded,
     isLoading: isFetchingBalance,
     refetch: refetchBalance,
-  } = useGetBalance({ // use cached global rpcClient inside
+  } = useGetBalance({
     request: {
       address,
       denom,
     },
-    rpcEndpoint,
     options: {
       context: defaultContext,
       enabled: !!address,
@@ -37,6 +36,8 @@ export default function useBalance({
           10 ** -COIN_DISPLAY_EXPONENT
         ),
     },
+    // with the new version, simply pass the endpoint to the clientResolver
+    clientResolver: rpcEndpoint,
   });
 
   return {

@@ -24,10 +24,9 @@ export default function SendMsg() {
   const [txHash, setTxHash] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // use cached global signingClient inside
   const { mutate: send, isSuccess: isSendSuccess } = useSend({
-    // @ts-ignore
-    getSingingClient: signingClient,
+    // with the new version, simply pass the signingClient to the clientResolver
+    clientResolver: signingClient,
     options: {
       context: defaultContext,
       onSuccess: (data:any) => {
