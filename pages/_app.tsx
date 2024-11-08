@@ -7,6 +7,10 @@ import { ChainProvider } from "@interchain-kit/react";
 import { defaultAssetList, defaultChain } from "../config/defaults";
 import { keplrWallet } from "@interchain-kit/keplr-extension";
 import { leapWallet } from "@interchain-kit/leap-extension";
+import { WCWallet } from "@interchain-kit/core";
+import { ledgerWallet } from "@interchain-kit/ledger";
+import { defaultChainName } from "@/config";
+
 import {
   Box,
   ThemeProvider,
@@ -26,13 +30,14 @@ const queryClient = new QueryClient({
 
 function CreateCosmosApp({ Component, pageProps }: AppProps) {
   const { themeClass } = useTheme();
+  const wcWallet = new WCWallet();
 
   return (
     <ThemeProvider>
       <ChainProvider
         chains={[defaultChain!]}
         assetLists={[defaultAssetList!]}
-        wallets={[keplrWallet, leapWallet]}
+        wallets={[keplrWallet, leapWallet, ledgerWallet, wcWallet]}
         signerOptions={{
           signing: () => {
             return {
@@ -45,7 +50,7 @@ function CreateCosmosApp({ Component, pageProps }: AppProps) {
         }}
         endpointOptions={{
           endpoints: {
-            "cosmoshub": {
+            [defaultChainName]: {
               rpc: [defaultRpcEndpoint],
             },
           },
