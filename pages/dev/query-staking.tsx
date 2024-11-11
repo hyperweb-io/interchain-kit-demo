@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useChain } from "@interchain-kit/react";
 import { defaultAssetList, defaultChainName } from "@/config";
 import { useGetPool } from 'interchainjs/cosmos/staking/v1beta1/query.rpc.func'
-import { defaultContext, useQueryClient } from '@tanstack/react-query'
+import { defaultContext } from '@tanstack/react-query'
 import { defaultRpcEndpoint as rpcEndpoint } from '@/config';
 
 import { Pool } from "interchainjs/cosmos/staking/v1beta1/staking";
