@@ -4,9 +4,9 @@ import { useState } from "react";
 
 export default function Index() {
   const [balance, setBalance] = useState('--')
-  const [transactionReceipt, setTransactionReceipt] = useState<ethers.TransactionReceipt | null>(null)
+  const [result, setResult] = useState<object | null>(null)
   const send = async () => {
-    setTransactionReceipt(null)
+    setResult(null)
     if (!window.ethereum) {
       alert('Please install MetaMask')
       return
@@ -19,7 +19,7 @@ export default function Index() {
       value: '1'
     })
     const res = await tx.wait();
-    setTransactionReceipt(res)
+    setResult(res)
     getBalance()
   }
 
@@ -65,8 +65,7 @@ export default function Index() {
 
       const signature = await wallet.signTypedData(domain, types, message);
       console.log("Signature:", signature);
-
-      console.log(`Signature: ${signature}`)
+      setResult({signature})
     } catch (error:any) {
       console.error("Error signing typed data:", error);
       alert(`Error: ${error.message}`)
@@ -80,6 +79,6 @@ export default function Index() {
     </Box>
     <Button onClick={send}>Send</Button>
     <Button onClick={signTypedDataTest} attributes={{marginTop: '1rem'}}>signTypedDataTest</Button>
-    {transactionReceipt && <Text attributes={{whiteSpace: 'pre-line', padding: '2rem'}} as="div">{JSON.stringify(transactionReceipt, null, 2)}</Text>}
+    {result && <Text attributes={{whiteSpace: 'pre-line', padding: '2rem'}} as="div">{JSON.stringify(result, null, 2)}</Text>}
   </Box>
 }
