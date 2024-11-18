@@ -30,7 +30,12 @@ const queryClient = new QueryClient({
 
 function CreateCosmosApp({ Component, pageProps }: AppProps) {
   const { themeClass } = useTheme();
-  const wcWallet = new WCWallet();
+  const wcWallet = new WCWallet({
+    name: 'name', prettyName: 'prettyName', mode: 'wallet-connect', 
+    logo: 'https://cosmology.zone/logos/products/create-cosmos-app.svg',
+    walletconnect: {
+    name: 'walletconnect.name', projectId: '1234567890'
+  }});
 
   return (
     <ThemeProvider>
