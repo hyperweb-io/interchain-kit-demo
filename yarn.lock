@@ -1623,10 +1623,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-2.0.3.tgz#4a2868d75d6d6963e423bcf90b7fd1be343409d3"
   integrity sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==
 
-"@interchain-kit/core@0.0.1-beta.38":
-  version "0.0.1-beta.38"
-  resolved "https://registry.yarnpkg.com/@interchain-kit/core/-/core-0.0.1-beta.38.tgz#97639fffcdcb57e14057d48d89626b44a68d22b2"
-  integrity sha512-EK3Euisk3LAXVrjJChHbHUZtJOKrBh6bIVaQAiTD1uDAU3t7k2kVYSGkZFgrbogtTdOYdG66lcfALuvrQoqq1w==
+"@interchain-kit/core@0.0.1-beta.39":
+  version "0.0.1-beta.39"
+  resolved "https://registry.yarnpkg.com/@interchain-kit/core/-/core-0.0.1-beta.39.tgz#ff78f17e41efbf9afd90d50de174e1c0e77c4569"
+  integrity sha512-vDCcQFoujEQWdPy9Np3lZVjAAl5edrl0EAzcHiUTEwO/C81Xetyv0wMYvOyJaWo0RpN1JIBD9KRqhTumnCEi4g==
   dependencies:
     "@chain-registry/v2" "^1.71.1"
     "@chain-registry/v2-keplr" "^0.0.2"
@@ -1645,29 +1645,29 @@
     interchainjs "0.0.1-beta.27"
     long "^5.2.3"
 
-"@interchain-kit/keplr-extension@0.0.1-beta.38":
-  version "0.0.1-beta.38"
-  resolved "https://registry.yarnpkg.com/@interchain-kit/keplr-extension/-/keplr-extension-0.0.1-beta.38.tgz#087bb054dd30906acd02338608fbc25e39e102be"
-  integrity sha512-6MnPf7iMghLfjAysqs5oS4rKlaPahdJQEMMK8zheqO3B0ZLUoJvSgtVUdpGvOGPle+0uQqUSaJQAfcfpvm1sOA==
+"@interchain-kit/keplr-extension@0.0.1-beta.39":
+  version "0.0.1-beta.39"
+  resolved "https://registry.yarnpkg.com/@interchain-kit/keplr-extension/-/keplr-extension-0.0.1-beta.39.tgz#d84d07e18aca60535494164ebcdd4129c0951605"
+  integrity sha512-seM1Zc8N5z3FcTcULXFXXqYy75fvskTr906nBWZQpJ17DQdSEOdYEaWGHjgCTnQRTphZCfkaVMFZrr4MitY88A==
   dependencies:
-    "@interchain-kit/core" "0.0.1-beta.38"
+    "@interchain-kit/core" "0.0.1-beta.39"
     "@keplr-wallet/provider-extension" "^0.12.102"
 
-"@interchain-kit/leap-extension@0.0.1-beta.38":
-  version "0.0.1-beta.38"
-  resolved "https://registry.yarnpkg.com/@interchain-kit/leap-extension/-/leap-extension-0.0.1-beta.38.tgz#89d0ec387f5b96d51ff27a9a4c7f9ec2ef622cb8"
-  integrity sha512-iJK10iWKfKLCBVNKQF1RJJjKTir7PZRornpJn55Oi9rzV8zjIDOD8Q2q/Ifrhpp9lkC88tU4FIRgOn7dCERSbw==
+"@interchain-kit/leap-extension@0.0.1-beta.39":
+  version "0.0.1-beta.39"
+  resolved "https://registry.yarnpkg.com/@interchain-kit/leap-extension/-/leap-extension-0.0.1-beta.39.tgz#09044ddf25ab3b6711853650eeae1619573afcce"
+  integrity sha512-h8/frxICDO9gvMZgF4vhzdjZXCeYz7vKTacnT3xiCxK+DRa4l/nKicZIb+JGsWh4bcgPNBjo4PMYHV0jCEaR1w==
   dependencies:
-    "@interchain-kit/core" "0.0.1-beta.38"
+    "@interchain-kit/core" "0.0.1-beta.39"
 
-"@interchain-kit/ledger@0.0.1-beta.38":
-  version "0.0.1-beta.38"
-  resolved "https://registry.yarnpkg.com/@interchain-kit/ledger/-/ledger-0.0.1-beta.38.tgz#3721f5c65c7f19abcfae050b8dafede2ee776349"
-  integrity sha512-zoc+aCIHM85FEmmF+tDB/5VglkCVRDwzH/b8tD0CtZuD0FNofxDOmLjRPdTfKftLaCjs9sLVst2XE0y6vrtmTg==
+"@interchain-kit/ledger@0.0.1-beta.39":
+  version "0.0.1-beta.39"
+  resolved "https://registry.yarnpkg.com/@interchain-kit/ledger/-/ledger-0.0.1-beta.39.tgz#f33894f8448aebb1dc203b0b9f545259a0cc9201"
+  integrity sha512-bXefqc6ZZJCKk08wrTUIIve78evbWxQACXIzkxwH6YhBIldZrI1VSes5JgOjpTygcYFaxT5+hxmj9fANki0Uzw==
   dependencies:
     "@chain-registry/v2" "^1.71.22"
     "@chain-registry/v2-types" "^0.53.4"
-    "@interchain-kit/core" "0.0.1-beta.38"
+    "@interchain-kit/core" "0.0.1-beta.39"
     "@ledgerhq/hw-transport" "^6.31.4"
     "@ledgerhq/hw-transport-webhid" "^6.29.4"
     "@zondax/ledger-cosmos-js" "^4.0.0"
@@ -1676,19 +1676,20 @@
     crypto-browserify "^3.12.1"
     crypto-es "^2.1.0"
 
-"@interchain-kit/react@0.0.1-beta.38":
-  version "0.0.1-beta.38"
-  resolved "https://registry.yarnpkg.com/@interchain-kit/react/-/react-0.0.1-beta.38.tgz#c348961ccc414c1727d607664a1b2d17b2b86e69"
-  integrity sha512-QCydV9vVhjBmKcV67n0hglVjdN3DBQQyzi/eEKCpavZNRODZMmh1yabp85YJ6XlFHdHBLkG3/POpoXTz57kk2A==
+"@interchain-kit/react@0.0.1-beta.39":
+  version "0.0.1-beta.39"
+  resolved "https://registry.yarnpkg.com/@interchain-kit/react/-/react-0.0.1-beta.39.tgz#53d9ce346130a8293b63e605a768308139c4e727"
+  integrity sha512-6vJt4SGwoB2nWDJJUDIWzZfCSO3P/j15Kb1LAwz2861UVq33tzwCdKLBsXApAIMnJowuGHhwAXQfFarEWyzXUQ==
   dependencies:
     "@chain-registry/v2-types" "^0.53.0"
-    "@interchain-kit/core" "0.0.1-beta.38"
+    "@interchain-kit/core" "0.0.1-beta.39"
     "@interchain-ui/react" "1.24.0"
     "@interchainjs/cosmos" "^0.0.1-beta.34"
     "@interchainjs/cosmos-types" "0.0.1-beta.17"
     "@react-icons/all-files" "^4.1.0"
     "@types/react" "^18.3.3"
     "@types/react-dom" "^18.3.0"
+    "@walletconnect/types" "^2.17.2"
     interchainjs "0.0.1-beta.27"
     react "^18.3.1"
     react-dom "^18.3.1"
@@ -4160,7 +4161,7 @@
   dependencies:
     tslib "1.14.1"
 
-"@walletconnect/types@2.17.2", "@walletconnect/types@^2.17.1":
+"@walletconnect/types@2.17.2", "@walletconnect/types@^2.17.1", "@walletconnect/types@^2.17.2":
   version "2.17.2"
   resolved "https://registry.yarnpkg.com/@walletconnect/types/-/types-2.17.2.tgz#f9afff242563be33f377de689b03b482f5b20aee"
   integrity sha512-j/+0WuO00lR8ntu7b1+MKe/r59hNwYLFzW0tTmozzhfAlDL+dYwWasDBNq4AH8NbVd7vlPCQWmncH7/6FVtOfQ==
