@@ -20,7 +20,7 @@ export default function Index() {
     const wallet = await provider.getSigner()
     // wallet.signTypedData()
     const tx = await wallet.sendTransaction({
-      to: '0x0000000000000000000000000000000000000000',
+      to: addr0,
       value: '1'
     })
     const res = await tx.wait();
