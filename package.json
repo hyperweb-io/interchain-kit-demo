@@ -38,6 +38,7 @@
     "decimal.js": "^10.4.3",
     "ethers": "^6.13.4",
     "interchainjs": "0.0.1-beta.34",
+    "json-bigint": "^1.0.0",
     "next": "^13",
     "react": "18.2.0",
     "react-dom": "18.2.0",
