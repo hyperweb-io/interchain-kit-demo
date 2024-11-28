@@ -30,18 +30,21 @@ const queryClient = new QueryClient({
 
 function CreateCosmosApp({ Component, pageProps }: AppProps) {
   const { themeClass } = useTheme();
-  const wcWallet = new WCWallet({
-    name: 'name', prettyName: 'prettyName', mode: 'wallet-connect', 
-    logo: 'https://cosmology.zone/logos/products/create-cosmos-app.svg',
-    walletconnect: {
-    name: 'walletconnect.name', projectId: '1234567890'
-  }});
+  const wcWallet = new WCWallet(undefined, {
+    metadata: {
+      name: 'Cosmology',
+      description: 'The cosmos sdk provider',
+      url: 'https://cosmology.zone',
+      icons: ['https://cosmology.zone/logos/products/create-cosmos-app.svg'],
+    }
+  });
 
   return (
     <ThemeProvider>
       <ChainProvider
         chains={[defaultChain!]}
         assetLists={[defaultAssetList!]}
+        // @ts-ignore
         wallets={[keplrWallet, leapWallet, ledgerWallet, wcWallet]}
         signerOptions={{
           signing: () => {
