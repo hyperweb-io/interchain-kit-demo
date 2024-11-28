@@ -5,3 +5,7 @@
 | Chain ID | 97 |
 | Currency symbol | tBNB |
 | Block explorer URL | https://testnet.bscscan.com |
+
+### If using /ethers/private-key
+- 👏 You can tract all rpc process in the console of the browser
+- Please set NEXT_PUBLIC_PRIVATE_KEY in .env.local
