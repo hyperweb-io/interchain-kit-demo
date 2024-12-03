@@ -40,6 +40,7 @@
     "ethers": "^6.13.4",
     "interchainjs": "0.0.1-beta.34",
     "json-bigint": "^1.0.0",
+    "long": "^5.2.3",
     "next": "^13",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "4.29.1",
+    "@types/long": "4.0.0",
     "@types/node": "^20.14.6",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

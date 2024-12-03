@@ -11,10 +11,12 @@ import { Warning } from './Warning';
 export function Wallet() {
   const { chain, status, wallet, username, address, message, connect, openView } = useChain(defaultChainName);
 
+  // @ts-ignore
   const ConnectButton = {
     [WalletState.Connected]: <Button.Connected onClick={openView} />,
     [WalletState.Connecting]: <Button.Connecting />,
     [WalletState.Disconnected]: <Button.Disconnected onClick={openView} />,
+    // @ts-ignore
     [WalletState.Reject]: <Button.Rejected onClick={openView} />
   }[status] || <Button.Connect onClick={openView} />;
 
@@ -53,7 +55,9 @@ export function Wallet() {
           {ConnectButton}
         </Box>
 
+        {/* @ts-ignore */}
         {message && [WalletState.Reject].includes(status)
+          // @ts-ignore
           ? <Warning text={`${wallet?.option?.prettyName}: ${message}`} />
           : null}
       </Stack>
