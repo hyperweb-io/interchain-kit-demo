@@ -33,7 +33,6 @@ export default function Index() {
     }
     const provider = new ethers.BrowserProvider(ethereum)
     const wallet = await provider.getSigner()
-    // wallet.signTypedData()
     const tx = await wallet.sendTransaction({
       to: addr0,
       value: '1'

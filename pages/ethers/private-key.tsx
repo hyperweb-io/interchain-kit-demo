@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import abi from './abi.json'
 
 export default function Index() {
-  const verifyingContract = '0xf67a42D581eB7d83135De8Dfe2fCccE58e5259bc'
+  const verifyingContract = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS! // '0xf67a42D581eB7d83135De8Dfe2fCccE58e5259bc' is on bsc testnet
   const addr0 = '0x0000000000000000000000000000000000000000'
-  const privateKey = process.env.NEXT_PUBLIC_PRIVATE_KEY
+  const privateKey = process.env.NEXT_PUBLIC_PRIVATE_KEY_DEV
   const prc = process.env.NEXT_PUBLIC_BSC_TESTNET_RPC
 
   const [balance, setBalance] = useState('--')

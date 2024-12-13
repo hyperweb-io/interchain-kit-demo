@@ -9,7 +9,9 @@
     "lint": "next lint",
     "locks:remove": "rm -f yarn.lock",
     "locks:create": "generate-lockfile --lockfile ../../yarn.lock --package package.json --write yarn.lock --force",
-    "locks": "npm run locks:remove && npm run locks:create"
+    "locks": "npm run locks:remove && npm run locks:create",
+    "run-ganache": "bash scripts/run-ganache.sh",
+    "deploy-contract": "ts-node contract/eip721/deploy.ts"
   },
   "resolutions": {
     "react": "18.2.0",
@@ -49,7 +51,7 @@
   "devDependencies": {
     "@tanstack/react-query-devtools": "4.29.1",
     "@types/long": "4.0.0",
-    "@types/node": "^20.14.6",
+    "@types/node": "^22.10.1",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "eslint": "8.28.0",
