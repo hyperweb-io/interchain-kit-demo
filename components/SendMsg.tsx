@@ -2,8 +2,7 @@ import { Box, Text, Button, Link } from "@interchain-ui/react";
 import { useState } from "react";
 import { useChain } from "@interchain-kit/react";
 import { defaultAssetList, defaultChain, defaultChainName } from "@/config";
-import { useSend } from 'interchainjs/cosmos/bank/v1beta1/tx.rpc.func'
-import { defaultContext } from '@tanstack/react-query'
+import { createSend } from 'interchainjs/cosmos/bank/v1beta1/tx.rpc.func'
 import useBalance from "@/hooks/useBalance";
 
 export default function SendMsg() {
@@ -24,34 +23,10 @@ export default function SendMsg() {
   const [txHash, setTxHash] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const { mutate: send, isSuccess: isSendSuccess } = useSend({
-    // with the new version, simply pass the signingClient to the clientResolver
-    clientResolver: signingClient,
-    options: {
-      context: defaultContext,
-      onSuccess: (data:any) => {
-        console.log('onSuccess', data)
-        refetchBalance()
-        if (data.code===0) {
-          setTxHash(data.hash);
-        } else {
-          setError(data.rawLog||JSON.stringify(data||{}));
-        }
-        setSending(false);
-      },
-      onError: (error) => {
-        console.log('onError', error)
-        setError(error.message || 'Unknown error');
-        setSending(false);
-      },
-    },
-  });
+  const send = createSend(signingClient)
 
   const {
-    balance,
-    isBalanceLoaded,
-    isFetchingBalance,
-    refetchBalance,
+    balance
   } = useBalance({
     address,
   })
@@ -62,30 +37,39 @@ export default function SendMsg() {
     setError(null);
     setTxHash(null);
     setSending(true);
-    send({
-      signerAddress: address,
-      message: {
-        fromAddress: address,
-        toAddress: address,
-        amount: [{ denom, amount: '1' }],
-      },
-      fee: {
-        amount: [
-          {
-            denom,
-            amount: '25000',
-          },
-        ],
-        gas: '1000000',
-      },
-      memo: 'using interchainjs',
+
+    const fee = {
+      amount: [{
+        denom,
+        amount: '2500',
+      }],
+      gas: "1000000",
+    };
+
+    send(address, {
+      fromAddress: address,
+      toAddress: address,
+      amount: [{ denom, amount: '1' }]
+    }, fee, 'using interchainjs')
+    .then((data) => {    
+      console.log('signAndBroadcast', data)
+      if (data.code===0) {
+        setTxHash((data as any).hash);
+      } else {
+        setError(data.rawLog||JSON.stringify(data||{}));
+      }
+      setSending(false);
+    }).catch((error) => {
+      console.log('signAndBroadcast', error)
+      setError(error.message || 'Unknown error');
+      setSending(false);
     })
   }
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <Box mb='$4'>
-        <Text fontSize='$2xl'>Balance: {isFetchingBalance?'--':(balance?.toFixed(COIN_DISPLAY_EXPONENT))} {coin?.symbol}</Text>
+        <Text fontSize='$2xl'>Balance: {balance===null?'--':(balance?.toFixed(COIN_DISPLAY_EXPONENT))} {coin?.symbol}</Text>
       </Box>
       <Box>
         <Button

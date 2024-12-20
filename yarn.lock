@@ -1739,6 +1739,17 @@
     react-stately "^3.32.2"
     zustand "^4.5.5"
 
+"@interchainjs/auth@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@interchainjs/auth/-/auth-1.6.3.tgz#369f56df863f87b46dce0783ea1b56101ac75a43"
+  integrity sha512-Beogp4nAyjLI88ifcFgqFfehY2UrnyqJMprM1NhXWplz+6gFlf6act/f+YfiQ+OPT9CpFbis2Xi6LyjrIyw8XA==
+  dependencies:
+    "@interchainjs/types" "1.6.3"
+    "@interchainjs/utils" "1.6.3"
+    "@noble/curves" "^1.1.0"
+    "@noble/hashes" "^1.3.1"
+    ethers "^6.5.1"
+
 "@interchainjs/auth@^0.0.1-beta.16", "@interchainjs/auth@^0.0.1-beta.34":
   version "0.0.1-beta.34"
   resolved "https://registry.yarnpkg.com/@interchainjs/auth/-/auth-0.0.1-beta.34.tgz#5c730c740c812d4077392dae7aa56c14721d7127"
@@ -1757,6 +1768,14 @@
   dependencies:
     "@interchainjs/types" "^0.0.1-beta.15"
     "@interchainjs/utils" "^0.0.1-beta.15"
+
+"@interchainjs/cosmos-types@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@interchainjs/cosmos-types/-/cosmos-types-1.6.3.tgz#97e0653efde8c4b674755a1fd89b01359e82e676"
+  integrity sha512-n9Nmktf94Gw9xrvnaeP1bbXTHI4tbzDI34Qt6WVKqqPkfWWQ/RhMy3rbCgYo1iiPB59xJ6XVZzeKANX5mqQLrg==
+  dependencies:
+    "@interchainjs/types" "1.6.3"
+    "@interchainjs/utils" "1.6.3"
 
 "@interchainjs/cosmos-types@^0.0.1-beta.17", "@interchainjs/cosmos-types@^0.0.1-beta.34":
   version "0.0.1-beta.34"
@@ -1781,6 +1800,21 @@
     "@noble/hashes" "^1.3.1"
     decimal.js "^10.4.3"
 
+"@interchainjs/cosmos@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@interchainjs/cosmos/-/cosmos-1.6.3.tgz#e804d8fdf64e8046be9572a15fb685cb76ddd6ae"
+  integrity sha512-HRHueKveLSsdb+ENsYLC2vyj7mTqlfC6G8h/WyW/4dHucNOrYky8lr4uQVbIUsZS+JULLEcMQsMb4+4OdbyhtQ==
+  dependencies:
+    "@chain-registry/v2" "^1.65.6"
+    "@chain-registry/v2-types" "^0.49.6"
+    "@interchainjs/auth" "1.6.3"
+    "@interchainjs/cosmos-types" "1.6.3"
+    "@interchainjs/types" "1.6.3"
+    "@interchainjs/utils" "1.6.3"
+    "@noble/curves" "^1.1.0"
+    "@noble/hashes" "^1.3.1"
+    decimal.js "^10.4.3"
+
 "@interchainjs/cosmos@^0.0.1-beta.20", "@interchainjs/cosmos@^0.0.1-beta.34":
   version "0.0.1-beta.34"
   resolved "https://registry.yarnpkg.com/@interchainjs/cosmos/-/cosmos-0.0.1-beta.34.tgz#f6f0b23581b5bb1992308983a909190833d06ccd"
@@ -1796,12 +1830,27 @@
     "@noble/hashes" "^1.3.1"
     decimal.js "^10.4.3"
 
+"@interchainjs/types@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@interchainjs/types/-/types-1.6.3.tgz#12765da49521f1512a1223687d2b0e9a33eeec8f"
+  integrity sha512-oDW5RUgVd5i4Ni7zx2YizIwRPgC97X79EQdb/sOkD+Fk+N/n83Op5JpnuaN6RB2bYJdeNWdn2RsH+Zk3uE1ETw==
+  dependencies:
+    decimal.js "^10.4.3"
+
 "@interchainjs/types@^0.0.1-beta.15", "@interchainjs/types@^0.0.1-beta.34":
   version "0.0.1-beta.34"
   resolved "https://registry.yarnpkg.com/@interchainjs/types/-/types-0.0.1-beta.34.tgz#4bff95f19ffa3d02422ea797229519feb84f09ca"
   integrity sha512-mDX7eDZTXX98v5PiLLqATN9TkZjVqPvIR4KkzzKXFW5l8skDBo4SGmwTTfssjO2yPx+xhEGhtNw/BApBbzLcVg==
   dependencies:
     decimal.js "^10.4.3"
+
+"@interchainjs/utils@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@interchainjs/utils/-/utils-1.6.3.tgz#5a327f5c06a8595f80cf131a39227c1575b892b3"
+  integrity sha512-3AY0Fix/schBsoV6Ys68xglegWXNL/XdyUgISkmsJcfR2Sdo4wGFgEHgsDJBj3pjC8dWLGGwpvHzFrW312+0Dw==
+  dependencies:
+    "@interchainjs/types" "1.6.3"
+    bech32 "^2.0.0"
 
 "@interchainjs/utils@^0.0.1-beta.15", "@interchainjs/utils@^0.0.1-beta.34":
   version "0.0.1-beta.34"
@@ -3939,9 +3988,9 @@
     csstype "^3.0.2"
 
 "@types/react@^18.3.3":
-  version "18.3.16"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.3.16.tgz#5326789125fac98b718d586ad157442ceb44ff28"
-  integrity sha512-oh8AMIC4Y2ciKufU8hnKgs+ufgbA/dhPTACaZPM86AbwX9QwnFtSoPWEeRUj8fge+v6kFt78BXcDhAU1SrrAsw==
+  version "18.3.18"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.3.18.tgz#9b382c4cd32e13e463f97df07c2ee3bbcd26904b"
+  integrity sha512-t4yC+vtgnkYjNSKlFx1jkAhH8LgTo2N/7Qvi83kdEaUtMDiwpbLAktKDaAMlRcJ5eSxZkH74eEGt1ky31d7kfQ==
   dependencies:
     "@types/prop-types" "*"
     csstype "^3.0.2"
@@ -6558,6 +6607,18 @@ inquirerer@0.1.3:
     inquirer "^6.0.0"
     inquirer-autocomplete-prompt "^0.11.1"
 
+interchain-react@1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/interchain-react/-/interchain-react-1.6.3.tgz#654ce95247beea6938e92be3a8782a45a9cdfce2"
+  integrity sha512-3nfyfriwZwQbpCi2m+gSc609MrxVKveNgAMj2/7mCjUsAyPNEZ76DmflSwPzvQmSrRi0XCxOLX1P0Wypeq3IKg==
+  dependencies:
+    "@interchainjs/cosmos" "1.6.3"
+    "@interchainjs/cosmos-types" "1.6.3"
+    "@interchainjs/types" "1.6.3"
+    "@interchainjs/utils" "1.6.3"
+    "@noble/hashes" "^1.3.1"
+    decimal.js "^10.4.3"
+
 interchainjs@0.0.1-beta.27:
   version "0.0.1-beta.27"
   resolved "https://registry.yarnpkg.com/interchainjs/-/interchainjs-0.0.1-beta.27.tgz#423b496ebfccf255bec2131e5a7f2019cafe85df"
@@ -6570,15 +6631,15 @@ interchainjs@0.0.1-beta.27:
     "@noble/hashes" "^1.3.1"
     decimal.js "^10.4.3"
 
-interchainjs@0.0.1-beta.34:
-  version "0.0.1-beta.34"
-  resolved "https://registry.yarnpkg.com/interchainjs/-/interchainjs-0.0.1-beta.34.tgz#2c34ccdce1974a5032389c5ac86782da56845261"
-  integrity sha512-OrxWKLNC2Eq8jUXUIaxf5u1euDmMfGYDq+FNC3IX8K4/ArJZmGuwGJZGDJSsxOkjx7nYRQ5o97CfNdZrjRdmKw==
+interchainjs@1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/interchainjs/-/interchainjs-1.6.3.tgz#1c80e97e5e63b2a30b90a62a0efaa895bafcddbf"
+  integrity sha512-ahCwLKuxja9iDleyRDfbG3ZJNT9XGydPLa2WvE0LYxzSzYrvbsmfl95IVkCQFQXgawatZjIIZdxcsRNNjdpjew==
   dependencies:
-    "@interchainjs/cosmos" "^0.0.1-beta.34"
-    "@interchainjs/cosmos-types" "^0.0.1-beta.34"
-    "@interchainjs/types" "^0.0.1-beta.34"
-    "@interchainjs/utils" "^0.0.1-beta.34"
+    "@interchainjs/cosmos" "1.6.3"
+    "@interchainjs/cosmos-types" "1.6.3"
+    "@interchainjs/types" "1.6.3"
+    "@interchainjs/utils" "1.6.3"
     "@noble/hashes" "^1.3.1"
     decimal.js "^10.4.3"
 
