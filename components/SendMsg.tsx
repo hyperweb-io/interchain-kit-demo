@@ -4,6 +4,7 @@ import { useChain } from "@interchain-kit/react";
 import { defaultAssetList, defaultChain, defaultChainName } from "@/config";
 import useBalance from "@/hooks/useBalance";
 import { useSend } from "interchain-react/cosmos/bank/v1beta1/tx.rpc.func";
+import { defaultContext } from "@tanstack/react-query";
 
 export default function SendMsg() {
   const coin = defaultAssetList?.assets[0];
@@ -24,7 +25,9 @@ export default function SendMsg() {
   const [error, setError] = useState<string | null>(null);
 
   const { mutate: send, isSuccess: isSendSuccess } = useSend({
+    clientResolver: signingClient,
     options: {
+      context: defaultContext,
       onSuccess: (data) => {
         console.log('signAndBroadcast', data)
         if (data.code===0) {
@@ -34,6 +37,11 @@ export default function SendMsg() {
         }
         setSending(false);
       },
+      onError: (error) => { 
+        console.error('signAndBroadcast', error)
+        setError(error.message);
+        setSending(false);
+      }
     },
   });
 
