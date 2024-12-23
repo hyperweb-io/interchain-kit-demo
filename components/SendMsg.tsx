@@ -2,8 +2,8 @@ import { Box, Text, Button, Link } from "@interchain-ui/react";
 import { useState } from "react";
 import { useChain } from "@interchain-kit/react";
 import { defaultAssetList, defaultChain, defaultChainName } from "@/config";
-import { createSend } from 'interchainjs/cosmos/bank/v1beta1/tx.rpc.func'
 import useBalance from "@/hooks/useBalance";
+import { useSend } from "interchain-react/cosmos/bank/v1beta1/tx.rpc.func";
 
 export default function SendMsg() {
   const coin = defaultAssetList?.assets[0];
@@ -23,7 +23,19 @@ export default function SendMsg() {
   const [txHash, setTxHash] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const send = createSend(signingClient)
+  const { mutate: send, isSuccess: isSendSuccess } = useSend({
+    options: {
+      onSuccess: (data) => {
+        console.log('signAndBroadcast', data)
+        if (data.code===0) {
+          setTxHash((data as any).hash);
+        } else {
+          setError(data.rawLog||JSON.stringify(data||{}));
+        }
+        setSending(false);
+      },
+    },
+  });
 
   const {
     balance
@@ -46,23 +58,18 @@ export default function SendMsg() {
       gas: "1000000",
     };
 
-    send(address, {
-      fromAddress: address,
-      toAddress: address,
-      amount: [{ denom, amount: '1' }]
-    }, fee, 'using interchainjs')
-    .then((data) => {    
-      console.log('signAndBroadcast', data)
-      if (data.code===0) {
-        setTxHash((data as any).hash);
-      } else {
-        setError(data.rawLog||JSON.stringify(data||{}));
-      }
-      setSending(false);
-    }).catch((error) => {
-      console.log('signAndBroadcast', error)
-      setError(error.message || 'Unknown error');
-      setSending(false);
+    send({
+      signerAddress: address,
+      message: {
+        fromAddress: address,
+        toAddress: address,
+        amount: [{
+          denom,
+          amount: '1',
+        }]
+      },
+      fee,
+      memo: 'Send from interchain-react'
     })
   }
 
