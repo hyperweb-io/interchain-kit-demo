@@ -1,12 +1,16 @@
 import React, { useCallback } from 'react';
 import { Button, Box } from '@interchain-ui/react';
+import { ContractEncoder, AbiFunctionItem } from '@/utils/ethereum/ContractEncoder';
+import abi from './usdt.abi.json';
 
 export default function Erc20() {
+
+  const usdt = new ContractEncoder(abi as AbiFunctionItem[]);
   
-  const data = 
-    '0xa9059cbb' + // Keccak256 of "transfer(address,uint256)"
-    '0000000000000000000000001111111111111111111111111111111111111111' + // to address
-    '000000000000000000000000000000000000000000000000016345785d8a0000'; // amount
+  const data = usdt.transfer(
+    '0x1111111111111111111111111111111111111111', // receiver address
+    10**17 // 0.1 USDT
+  )
 
   const contractAddress = "0x4EFbC939b905785e9c27A3A37047fAd18c40e08e";
   const bscTestnetChainId = '0x61'; // 97 in decimal
