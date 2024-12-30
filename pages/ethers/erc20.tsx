@@ -6,7 +6,7 @@ import abi from './usdt.abi.json';
 export default function Erc20() {
 
   const usdt = new ContractEncoder(abi as AbiFunctionItem[]);
-  
+
   const data = usdt.transfer(
     '0x1111111111111111111111111111111111111111', // receiver address
     10**17 // 0.1 USDT
@@ -35,7 +35,7 @@ export default function Erc20() {
         from: from,
         to: contractAddress, 
         value: '0x0',
-        data: data,
+        data,
       };
 
       const txHash = await window.ethereum.request({
@@ -54,7 +54,7 @@ export default function Erc20() {
   }, [data, contractAddress]);
 
   return (
-    <Box>
+    <Box width='$full' minHeight='100vh' display='flex' flexDirection='column' alignItems='center' justifyContent='center'>
       <Button onClick={sendTransaction}>Send USDT</Button>
     </Box>
   );
