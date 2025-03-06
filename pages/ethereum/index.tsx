@@ -1,16 +1,16 @@
 import { Box, Button, Text } from "@interchain-ui/react";
-import { SignerFromBrowser } from "@interchainjs/ethereum/signers/SignerFromBrowser"
+// import { SignerFromBrowser } from "@interchainjs/ethereum/signers/SignerFromBrowser"
 import { useEffect, useState } from "react";
-import abi from '../ethers/abi.json'
 import { IEthereumProvider } from "@keplr-wallet/types";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import BigNumber from "bignumber.js";
+import { SignerFromBrowser } from "@/utils/ethereum/signers/SignerFromBrowser";
+import { TransactionReceipt } from "@/utils/ethereum/types/transaction";
 
 type EthereumProvider = MetaMaskInpageProvider | IEthereumProvider | undefined
 type EthereumProviderType = 'keplr' | 'metamask'
 
 export default function Index() {
-  const verifyingContract = '0xf67a42D581eB7d83135De8Dfe2fCccE58e5259bc'
   const addr0 = '0x0000000000000000000000000000000000000000'
 
   const [balance, setBalance] = useState('--')
@@ -26,16 +26,29 @@ export default function Index() {
     setEthereum(ethereum)
   }, [selectedWallet])
 
-  const send = async () => {
+  const send = async (type: 'EIP1559'|'pre-EIP1559'='pre-EIP1559') => {
     setResult(null)
     if (!ethereum) {
       alert('Please install MetaMask')
       return
     }
     const wallet = new SignerFromBrowser(ethereum)
-    const tx = await wallet.sendLegacyTransactionAutoGas(addr0, 1n, '0x', 21000n)
-    console.log('tx', tx)
-    const res = await tx.wait();
+    let res:TransactionReceipt
+    if (type==='EIP1559') {
+      const tx = await wallet.sendEIP1559({
+        to: addr0,
+        value: 1n,
+      })
+      console.log('tx', tx)
+      res = await tx.wait();
+    } else {
+      const tx = await wallet.send({
+        to: addr0,
+        value: 1n,
+      })
+      console.log('tx', tx)
+      res = await tx.wait();
+    }
     setResult(res)
     getBalance()
   }
@@ -107,7 +120,8 @@ export default function Index() {
       <Text attributes={{marginRight: '1rem'}}>Balance: {balance}</Text>
       <Button onClick={getBalance} size="sm">Fetch</Button>
     </Box>
-    <Button onClick={send}>Send</Button>
+    <Button onClick={send}>Send by pre-EIP1559</Button>
+    <Button onClick={()=>send('EIP1559')} attributes={{marginTop: '1rem'}}>Send by EIP1559</Button>
     <Button onClick={addEthereumChain} attributes={{marginTop: '1rem'}}>addEthereumChain</Button>
     {result && <Text attributes={{whiteSpace: 'pre-line', padding: '2rem'}} as="div">{JSON.stringify(result, null, 2)}</Text>}
   </Box>

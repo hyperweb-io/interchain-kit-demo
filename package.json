@@ -48,7 +48,8 @@
     "next": "^13",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "4.6.0"
+    "react-icons": "4.6.0",
+    "rlp": "^3.0.0"
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "4.29.1",
@@ -60,5 +61,6 @@
     "eslint-config-next": "13.0.5",
     "generate-lockfile": "0.0.12",
     "typescript": "^5.1.6"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
