@@ -1,11 +1,10 @@
 import { Box, Button, Text } from "@interchain-ui/react";
-// import { SignerFromBrowser } from "@interchainjs/ethereum/signers/SignerFromBrowser"
+import { SignerFromBrowser } from "@interchainjs/ethereum/signers/SignerFromBrowser"
+import { TransactionReceipt } from "@interchainjs/ethereum/types/transaction";
 import { useEffect, useState } from "react";
 import { IEthereumProvider } from "@keplr-wallet/types";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import BigNumber from "bignumber.js";
-import { SignerFromBrowser } from "@/utils/ethereum/signers/SignerFromBrowser";
-import { TransactionReceipt } from "@/utils/ethereum/types/transaction";
 
 type EthereumProvider = MetaMaskInpageProvider | IEthereumProvider | undefined
 type EthereumProviderType = 'keplr' | 'metamask'
