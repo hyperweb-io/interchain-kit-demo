@@ -23,6 +23,7 @@
     "@chain-registry/types": "0.16.0",
     "@chain-registry/utils": "1.13.2",
     "@chain-registry/v2": "^1.71.7",
+    "@chain-registry/v2-utils": "^1.52.229",
     "@cosmjs/proto-signing": "^0.32.4",
     "@cosmology/telescope": "^1.10.3",
     "@interchain-kit/core": "0.0.1-beta.39",
