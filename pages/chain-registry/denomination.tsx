@@ -1,3 +1,7 @@
+/**
+ * refere to: https://github.com/hyperweb-io/chain-registry/blob/main/v2/packages/utils/README.md
+ */
+
 import { assetLists } from '@chain-registry/v2';
 import {
   convertBaseUnitToDisplayUnit,
